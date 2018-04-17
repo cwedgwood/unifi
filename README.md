@@ -35,7 +35,7 @@ avoids the cumbersome command line and allows you to tweak things.
 
 ### Stopping ###
 
-    docker exec unifi /stop.sh
+`docker stop` should cause the container to shutdown cleanly.
 
 ### Upgrading ###
 
@@ -45,8 +45,7 @@ downgrades - backups are useful.
 
 Assuming you've named your container `unifi` then:
 
-Stop `docker exec unifi /stop.sh`
+	docker stop unifi
+	docker rm unifi
 
-Cleanup `docker rm unifi`
-
-Restart - [see above](#starting)
+Restart - [see 'Starting'](#starting)
