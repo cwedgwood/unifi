@@ -31,7 +31,7 @@ avoids the cumbersome command line and allows you to tweak things.
     docker run --net=host --name=unifi -d --restart unless-stopped \
            -v /var/lib/unifi/:/var/lib/unifi/ \
            -v /var/log/unifi/:/var/log/unifi/ \
-           cwedgwood/unifi:5.7.23-00
+           cwedgwood/unifi
 
 ### Stopping ###
 
