@@ -8,6 +8,16 @@ RUN mkdir -p /usr/share/man/man1/
 
 # BASE SYSTEM
 
+# setup users/groups (to be consistent); ideally we want something
+# like:
+#
+#   mongodb:x:42001:42001::/var/lib/mongodb:/bin/false
+#   unifi:x:42002:42002::/var/lib/unifi:/bin/false
+
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=858903
+#RUN useradd -d /var/lib/mongodb -M -s /bin/false -u 42001 -U mongodb
+RUN useradd -d /var/lib/unifi -M -s /bin/false -u 42002 -U unifi
+
 # *required* to make unifi happy: binutils libcap2 procps (for pgrep),
 # *required*/useful (and small): wget, less
 RUN apt-get update && \
@@ -16,6 +26,10 @@ RUN apt-get update && \
     apt-get clean && \
     find /var/lib/apt/lists/ -type f -print0 | xargs -r0 rm
 
+# mongodb uid fixup hack (see above)
+RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
+    sed -i "s/^\(mongodb:x\).*::/\1:42001:42001::/" /etc/passwd && \
+    sed -i "s/^\(mongodb:x\).*/\1:42001:/" /etc/group
 
 # ADD UNIFI CONTROLLER
 
@@ -40,5 +54,9 @@ RUN cd /usr/lib/unifi && \
         ln -s /run/unifi run && \
 	ln -s /var/lib/unifi/ data && \
 	ln -s /var/log/unifi logs
+
+# if we exec' in, it's useful to see we've done so as in most cases
+# the hostname won't have changed
+ENV debian_chroot="Unifi Controller"
 
 CMD [ "/usr/lib/unifi/unifi-start.sh" ]
