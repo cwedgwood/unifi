@@ -17,12 +17,8 @@ runtest: container
 	sudo docker exec -ti unifi /bin/bash /stop.sh
 	sudo docker logs -f unifi
 
-push: container
-	sudo docker tag unifi cwedgwood/unifi:5.7.23-00
-	sudo docker push cwedgwood/unifi | cat
-
 clean:
 	rm -f *~
 
 .PHONY:
-	default container runtest push clean
+	default container runtest clean
