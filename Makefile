@@ -2,20 +2,21 @@
 default: container
 
 container:
-	sudo docker build -t unifi .
-	sudo docker images unifi
+	docker build -t unifi .
+	docker images unifi
 
 runtest: container
-	sudo docker run -d --rm --name unifi \
+	docker run -d --name unifi \
 		--net=host \
-		--rm -ti \
+		-ti \
 		-v /tmp/unifi-data/:/var/lib/unifi/ \
 		-v /tmp/unifi-logs:/var/log/unifi/ \
 		unifi
 	sleep 15 # let it do something for a bit
-	sudo docker logs unifi
-	sudo docker exec -ti unifi /bin/bash /stop.sh
-	sudo docker logs -f unifi
+	docker logs unifi
+	docker exec -ti unifi /bin/bash /stop.sh
+	docker logs -f unifi
+	docker rm unifi
 
 clean:
 	rm -f *~
