@@ -1,25 +1,27 @@
 
+TAG := testi-unifi
+TESTC := testc-unifi
+
 default: container
 
 container:
-	docker build -t unifi .
-	docker images unifi
+	docker build -t $(TAG) .
+	docker images $(TAG)
 
 runtest: container
-	docker run -d --name unifi \
-		--net=host \
+	docker run -d --name $(TESTC) \
 		-ti \
-		-v /tmp/unifi-data/:/var/lib/unifi/ \
-		-v /tmp/unifi-logs:/var/log/unifi/ \
-		unifi
+		-v runtest-unifi-data:/var/lib/unifi/ \
+		-v runtest-unifi-logs:/var/log/unifi/ \
+		$(TAG)
 	sleep 15 # let it do something for a bit
-	docker logs -t unifi
+	docker logs -t $(TESTC)
 	@echo
 	@echo stopping controller...
 	@echo
-	docker exec -ti unifi /bin/bash /stop.sh
-	docker logs -t -f unifi
-	docker rm unifi
+	docker exec -ti $(TESTC) /bin/bash /stop.sh
+	docker logs -t -f $(TESTC)
+	docker rm $(TESTC)
 
 clean:
 	rm -f *~
