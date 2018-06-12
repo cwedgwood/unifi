@@ -59,4 +59,5 @@ RUN cd /usr/lib/unifi && \
 # the hostname won't have changed
 ENV debian_chroot="Unifi Controller"
 
+USER unifi
 CMD [ "/usr/lib/unifi/unifi-start.sh" ]
