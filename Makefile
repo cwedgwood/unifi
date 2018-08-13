@@ -8,7 +8,7 @@ runtest-unifi-data runtest-unifi-logs:
 	docker run -ti --rm \
 		-v $(PWD)/runtest-unifi-data:/var/lib/unifi/ \
 		-v $(PWD)/runtest-unifi-logs:/var/log/unifi/ \
-		cwedgwood/bldr:0.01g chown 42002:42002 /var/lib/unifi/ /var/log/unifi/
+		cwedgwood/bldr:0.03 chown 42002:42002 /var/lib/unifi/ /var/log/unifi/
 
 container: runtest-unifi-data runtest-unifi-logs
 	docker build -t $(TAG) .
