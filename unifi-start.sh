@@ -15,8 +15,7 @@ for v in /var/log/unifi/ /var/lib/unifi/ ; do
 done
 [ "${verr}" -ne 0 ] && ( echo "ERROR: refusing to start..." ; exit 2 )
 
-echo "INFO: Starting container (not all logs are visible here)"
-touch /var/log/unifi/server.log && tail -0f /var/log/unifi/server.log &
+echo "INFO: Starting container, logs are in  /var/log/unifi/"
 
 cd /usr/lib/unifi
 exec java -Djava.security.egd=file:/dev/urandom -jar lib/ace.jar start
