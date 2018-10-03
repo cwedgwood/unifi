@@ -18,4 +18,4 @@ done
 echo "INFO: Starting container, logs are in  /var/log/unifi/"
 
 cd /usr/lib/unifi
-exec java -Djava.security.egd=file:/dev/urandom -jar lib/ace.jar start
+exec java -XX:-UsePerfData -Djava.security.egd=file:/dev/urandom -jar lib/ace.jar start

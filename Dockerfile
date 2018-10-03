@@ -24,7 +24,8 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
         apt-get install -y --no-install-recommends mongodb-server jsvc openjdk-8-jre-headless binutils libcap2 procps wget less curl && \
     apt-get clean && \
-    find /var/lib/apt/lists/ -type f -print0 | xargs -r0 rm
+    find /var/lib/apt/lists/ -type f -print0 | xargs -r0 rm && \
+    rm -vrf /tmp/hsperf*
 
 # mongodb uid fixup hack (see above)
 RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
