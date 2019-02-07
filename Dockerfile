@@ -22,7 +22,7 @@ RUN useradd -d /var/lib/unifi -M -s /bin/false -u 42002 -U unifi
 # *required*/useful (and small): wget, less
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-        apt-get install -y --no-install-recommends mongodb-server jsvc openjdk-8-jre-headless binutils libcap2 procps wget less curl && \
+        apt-get install -y --no-install-recommends mongodb-server jsvc openjdk-8-jre-headless binutils libcap2 procps wget less curl iproute2 && \
     apt-get clean && \
     find /var/lib/apt/lists/ -type f -print0 | xargs -r0 rm && \
     rm -vrf /tmp/hsperf*
@@ -35,7 +35,7 @@ RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
 # ADD UNIFI CONTROLLER
 
 RUN cd / && \
-    wget -q https://dl.ubnt.com/unifi/5.9.29-04b5d20997/unifi_sysvinit_all.deb && \
+    wget -q https://dl.ubnt.com/unifi/5.10.12/unifi_sysvinit_all.deb && \
     DEBIAN_FRONTEND=noninteractive dpkg -i /unifi_sysvinit_all.deb && \
     rm /unifi_sysvinit_all.deb
 
