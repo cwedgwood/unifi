@@ -23,7 +23,7 @@ runtest: container
 		$(TAG)
 	sleep 2 # enough time to start and create logs?
 	echo "IP:"
-	docker inspect testc-unifi  | jq .[].NetworkSettings.Networks.bridge.IPAddress
+	docker inspect -f "{{ .NetworkSettings.IPAddress }}" testc-unifi
 	echo "Sleeping for a bit ... showing logs:"
 	tail -f $(PWD)/runtest-unifi-logs/* &
 	sleep 60 # let it do something for a bit
