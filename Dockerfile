@@ -35,7 +35,7 @@ RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
 # ADD UNIFI CONTROLLER
 
 RUN cd / && \
-    wget -q https://dl.ubnt.com/unifi/5.10.21/unifi_sysvinit_all.deb && \
+    wget -q https://dl.ubnt.com/unifi/5.10.22-3960e2894b/unifi_sysvinit_all.deb && \
     DEBIAN_FRONTEND=noninteractive dpkg -i /unifi_sysvinit_all.deb && \
     rm /unifi_sysvinit_all.deb
 
