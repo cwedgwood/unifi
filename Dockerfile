@@ -22,6 +22,8 @@ RUN useradd -d /var/lib/unifi -M -s /bin/false -u 42002 -U unifi
 # *required*/useful (and small): wget, less
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
+        apt-get -y dist-upgrade && \
+    DEBIAN_FRONTEND=noninteractive \
         apt-get install -y --no-install-recommends mongodb-server jsvc openjdk-8-jre-headless binutils libcap2 procps wget less curl iproute2 && \
     apt-get clean && \
     find /var/lib/apt/lists/ -type f -print0 | xargs -r0 rm && \
