@@ -1,5 +1,7 @@
 # -*- conf -*-
 
+# We want/need stretch as that has mongodb 3.x and the java 8 which
+# both work; more recent jre and mongodb will not work
 FROM debian:stretch-slim
 
 # debian:stretch-slim lacks this, needed or alternates throws errors
@@ -37,7 +39,7 @@ RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
 # ADD UNIFI CONTROLLER
 
 RUN cd / && \
-    wget -q https://dl.ui.com/unifi/5.11.46/unifi_sysvinit_all.deb && \
+    wget -q https://dl.ui.com/unifi/5.11.50/unifi_sysvinit_all.deb && \
     DEBIAN_FRONTEND=noninteractive dpkg -i /unifi_sysvinit_all.deb && \
     rm /unifi_sysvinit_all.deb
 
