@@ -2,16 +2,18 @@
 TAG := testi-unifi
 TESTC := testc-unifi
 
+UNIFI_DEB_URL ?= https://dl.ui.com/unifi/5.14.23/unifi_sysvinit_all.deb
+
 default: runtest
 
 runtest-unifi-data runtest-unifi-logs:
 	docker run -ti --rm \
 		-v $(PWD)/runtest-unifi-data:/var/lib/unifi/ \
 		-v $(PWD)/runtest-unifi-logs:/var/log/unifi/ \
-		cwedgwood/bldr:0.04 chown 42002:42002 /var/lib/unifi/ /var/log/unifi/
+		alpine:3 chown 42002:42002 /var/lib/unifi/ /var/log/unifi/
 
 container: runtest-unifi-data runtest-unifi-logs
-	docker build -t $(TAG) .
+	docker build --pull --build-arg UNIFI_DEB_URL=$(UNIFI_DEB_URL) -t $(TAG) .
 	docker images $(TAG)
 
 runtest: container
@@ -26,7 +28,7 @@ runtest: container
 	docker inspect -f "{{ .NetworkSettings.IPAddress }}" testc-unifi
 	echo "Sleeping for a bit ... showing logs:"
 	tail -f $(PWD)/runtest-unifi-logs/* &
-	sleep 60 # let it do something for a bit
+	sleep 300 # let it do something for a bit
 	@echo
 	@echo stopping controller...
 	@echo
