@@ -37,7 +37,7 @@ runtest: container
 	-docker rm -f $(TESTC) || true
 
 clean:
-	rm -f *~
+	rm -f *~ */*~
 	-docker rm -f $(TESTC) || true
 	sudo rm -rf runtest-unifi-data runtest-unifi-logs
 

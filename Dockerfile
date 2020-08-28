@@ -34,10 +34,8 @@ RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
     sed -i "s/^\(mongodb:x\).*::/\1:42001:42001::/" /etc/passwd && \
     sed -i "s/^\(mongodb:x\).*/\1:42001:/" /etc/group
 
-# ADD UNIFI CONTROLLER
-
-ARG UNIFI_DEB_URL=https://dl.ui.com/unifi/5.14.23/unifi_sysvinit_all.deb
-
+# ADD UNIFI CONTROLLER; the URL *must* be specified
+ARG UNIFI_DEB_URL
 RUN cd / && \
     wget -q $UNIFI_DEB_URL && \
     DEBIAN_FRONTEND=noninteractive dpkg -i /unifi_sysvinit_all.deb && \

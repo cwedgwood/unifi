@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# https://github.com/binbashar/public-docker-images/blob/master/terraform-resources/hooks/build
+
+echo "------ HOOK START - BUILD -------"
+printenv
+
+docker build -t $IMAGE_NAME "--build-arg=UNIFI_DEB_URL=https://dl.ui.com/unifi/${DOCKER_TAG}/unifi_sysvinit_all.deb" .
+
+echo "------ HOOK END   - BUILD -------"
