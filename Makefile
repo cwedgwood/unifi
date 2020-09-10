@@ -2,7 +2,7 @@
 TAG := testi-unifi
 TESTC := testc-unifi
 
-UNIFI_DEB_URL ?= https://dl.ui.com/unifi/6.0.15-60e2436234/unifi_sysvinit_all.deb
+UNIFI_DEB_URL ?= https://dl.ui.com/unifi/6.0.18-2f53410e48/unifi_sysvinit_all.deb
 
 default: runtest
 
