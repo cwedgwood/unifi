@@ -36,7 +36,7 @@ RUN find / -xdev -user mongodb -print0 | xargs -r0 chown -v 42001:42001 && \
 
 # ADD UNIFI CONTROLLER
 
-ARG UNIFI_DEB_URL=https://dl.ui.com/unifi/6.0.18-2f53410e48/unifi_sysvinit_all.deb
+ARG UNIFI_DEB_URL=https://dl.ui.com/unifi/6.0.20-816b9dfcdd/unifi_sysvinit_all.deb
 
 RUN cd / && \
     wget -q $UNIFI_DEB_URL && \
